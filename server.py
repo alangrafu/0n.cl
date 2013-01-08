@@ -17,12 +17,10 @@ app = bottle.app()
 def process(c):
   __urls = readSource()
   if len(__urls) == 0:
-    bottle.response.status = '404 Not Found'
-    return "no urls"
+    bottle.abort(404, "No such identifier")
   try:
     url = __urls[c]
-    print "LOCATION",bottle.response
-    bottle.response.status = '303 See Other'
+    bottle.redirect(url)
     return url
   except KeyError :
     bottle.response.status = '404 Not Found'
