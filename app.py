@@ -26,4 +26,4 @@ def process(c):
     response.status = '404 Not Found'
     return "No URL associated to that identifier\n\n"
 
-run(host='0.0.0.0')
+run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
