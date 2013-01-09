@@ -1,5 +1,5 @@
 import os
-from bottle import route, run, redirect
+from bottle import route, run, redirect, abort, error, template
 import csv
 
 def readSource():
@@ -7,7 +7,6 @@ def readSource():
   try:
     reader = csv.reader(open('urls.csv', 'r'), delimiter=',')
     for line in reader:
-      print "Reading", line[0]
       urls[line[0]] = line[1]
   except Exception:
     print "Can't read source!"
@@ -18,12 +17,14 @@ def process(c):
   __urls = readSource()
   if len(__urls) == 0:
     abort(404, "No such identifier")
-  try:
+  if c in __urls.keys():
     url = __urls[c]
     redirect(url)
     return url
-  except KeyError :
-    response.status = '404 Not Found'
-    return "No URL associated to that identifier\n\n"
+  else:
+    abort(404, "No URL associated to that identifier")
 
-run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+@error(404)
+def error404(error):
+  return template('404')
+run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
