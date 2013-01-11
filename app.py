@@ -1,6 +1,7 @@
 import os
 from bottle import route, run, redirect, abort, error, template
 import csv
+import CreateURL
 
 def readSource():
   urls = {}
@@ -11,6 +12,12 @@ def readSource():
   except Exception:
     print "Can't read source!"
   return urls
+
+@route('/zxc')
+def create():
+  c = CreateURL.CreateURL()
+  url = c.create('http://asdzxczxczxczxc')
+  return url
 
 @route('/<c>')
 def process(c):
