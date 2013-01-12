@@ -30,7 +30,7 @@ def process(c):
     abort(404, "No such identifier")
   if c in __urls.keys():
     url = __urls[c]
-    redirect(url)
+    redirect(url, 301)
     return url
   else:
     abort(404, "No URL associated to that identifier")
