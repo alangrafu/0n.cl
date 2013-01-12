@@ -13,11 +13,15 @@ def readSource():
     print "Can't read source!"
   return urls
 
-@route('/zxc')
+@route('/post', method = 'post')
 def create():
   c = CreateURL.CreateURL()
   url = c.create('http://asdzxczxczxczxc')
   return url
+
+@route('/post', method = 'get')
+def showForm():
+  return template('form')
 
 @route('/<c>')
 def process(c):
