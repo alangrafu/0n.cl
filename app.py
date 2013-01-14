@@ -6,7 +6,7 @@ import CreateURL
 def readSource():
   urls = {}
   try:
-    reader = csv.reader(open('urls.csv', 'r'), delimiter=',')
+    reader = csv.reader(open('db/urls.csv', 'r'), delimiter=',')
     for line in reader:
       urls[line[0]] = line[1]
   except Exception:
@@ -21,7 +21,7 @@ def create():
 
 @route('/post', method = 'get')
 def showForm():
-  return template('form')
+  return template('templates/form')
 
 @route('/<c>')
 def process(c):
@@ -37,5 +37,5 @@ def process(c):
 
 @error(404)
 def error404(error):
-  return template('404')
+  return template('templates/404')
 run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
